@@ -145,6 +145,8 @@ vendor-tarball: build install.cargo-vendor-filterer
 	mv vendor.tar.gz netavark-v$$VERSION-vendor.tar.gz && \
 	gzip -c bin/netavark > netavark.gz && \
 	sha256sum netavark.gz netavark-v$$VERSION-vendor.tar.gz > sha256sum
+	mkdir -p vendor-tarballs
+	mv netavark.gz netavark-v$$VERSION-vendor.tar.gz sha256sum vendor-tarballs
 
 .PHONY: install.cargo-vendor-filterer
 install.cargo-vendor-filterer:
