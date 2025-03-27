@@ -142,8 +142,10 @@ validate: $(CARGO_TARGET_DIR)
 vendor-tarball: build install.cargo-vendor-filterer
 	VERSION=$(shell bin/netavark --version | cut -f2 -d" ") && \
 	$(CARGO) vendor-filterer --format=tar.gz --prefix vendor/ && \
-	mv vendor.tar.gz netavark-v$$VERSION-vendor.tar.gz && \
-	gzip -c bin/netavark > netavark.gz && \
+	mkdir -p vendor-tarball && \
+	mv vendor.tar.gz vendor-tarball/netavark-v$$VERSION-vendor.tar.gz && \
+	gzip -c bin/netavark > vendor-tarball/netavark.gz && \
+	cd vendor-tarball && \
 	sha256sum netavark.gz netavark-v$$VERSION-vendor.tar.gz > sha256sum
 
 .PHONY: install.cargo-vendor-filterer
